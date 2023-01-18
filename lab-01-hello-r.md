@@ -82,9 +82,30 @@ So we can see that the correlation comes out to -0.0630
 
 ### Exercise 4
 
-Add code and narrative as needed. Note that two R chunks are given but
-they are not labeled. Use the convention from above to name them
-appropriately.
+Following the example of the last few sections, we can find the
+correlation between “x” and “y” in the circle data
+
+``` r
+circle_data <- datasaurus_dozen %>%
+  filter(dataset == "circle")
+
+circle_data %>%
+  summarize(r = cor(x, y))
+```
+
+    ## # A tibble: 1 × 1
+    ##         r
+    ##     <dbl>
+    ## 1 -0.0683
+
+And plot it
+
+``` r
+ggplot(circle_data, aes(x = x, y = y)) +
+  geom_point()
+```
+
+![](lab-01-hello-r_files/figure-gfm/plot-circle-1.png)<!-- -->
 
 ### Exercise 5
 
