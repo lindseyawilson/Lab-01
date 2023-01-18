@@ -2,7 +2,12 @@
 title: "Lab 01 - Hello R"
 author: "Lindsey Wilson"
 date: "1/17/23"
-output: github_document
+output: 
+  html_document: 
+    fig_width: 12
+    fig_height: 12
+    theme: journal
+    highlight: tango
 ---
 
 ## Load packages and data
@@ -18,8 +23,9 @@ library(datasauRus)
 
 According to the help file, the dataset has 1846 rows and 3 variables ("dataset", "x", and "y")
 
-```
-?datasaurus_dozen
+```{r}
+vars <- names(datasaurus_dozen)
+vars
 ```
 
 ### Exercise 2
@@ -28,7 +34,7 @@ The correlation between "x" and "y" in the dino_data dataset is -0.0645.
 
 And here's what the data look like plotted:
 
-```{r plot-dino, fig.height=3, fig.width=6}
+```{r plot-dino, fig.height=5, fig.width=5}
 dino_data <- datasaurus_dozen %>%
   filter(dataset == "dino")
 
@@ -36,7 +42,7 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
 
-And here's the code I used (was given) to find the correlation!
+And here's the code I used (was given) to find the correlation
 
 ```{r cor-dino}
 dino_data %>%
@@ -51,7 +57,7 @@ First, we create a dataset with just the star data
 
 Then, we plot that data using the same code we used for the dino data
 
-```{r plot-star}
+```{r plot-star, fig.height=5, fig.width=5}
 star_data <- datasaurus_dozen %>%
   filter(dataset == "star")
 
@@ -66,13 +72,13 @@ star_data %>%
   summarize(r = cor(x, y))
 ```
 
-So we can see that the correlation  comes out to -0.0630
+So we can see that the correlation comes out to -0.0630. That's almost exactly the same as in the dino data!
 
 ### Exercise 4
 
 Following the example of the last few sections, we can find the correlation between "x" and "y" in the circle data
 
-```{r corr-circle}
+```{r cor-circle}
 circle_data <- datasaurus_dozen %>%
   filter(dataset == "circle")
 
@@ -82,17 +88,29 @@ circle_data %>%
 
 And plot it
 
-```{r plot-circle}
+```{r plot-circle, fig.height=5, fig.width=5}
 ggplot(circle_data, aes(x = x, y = y)) +
   geom_point()
 ```
 
+So one again, even though the shape of the data is very different from Ex. 2 & 3, the correlation is almost exactly the same.
+
 ### Exercise 5
 
-Add code and narrative as needed.
+The code below lets us visualize all of the datasets at once
 
-To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, green C+.
+```{r all-plots}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
 
+They look really different! However, we can see below that, in spite of that, the correlation between "x" and "y" across the datasets doesn't vary much
 
-
-
+```{r all-cor}
+all_correlations <- datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y))
+all_correlations
+```
