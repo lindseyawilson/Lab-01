@@ -49,12 +49,36 @@ dino_data %>%
 
 ### Exercise 3
 
-Add code and narrative as needed. Note that the R chunks are labeled
-with `plot-star` and `cor-star` to provide spaces to place the code for
-plotting and calculating the correlation coefficient. To finish, clean
-up the narrative by removing these instructions.
+Below we have the code that allows us to plot the star data
 
-I’m some filler text, you should replace me with more meaningful text…
+First, we create a dataset with just the star data
+
+Then, we plot that data using the same code we used for the dino data
+
+``` r
+star_data <- datasaurus_dozen %>%
+  filter(dataset == "star")
+
+ggplot(star_data, aes(x = x, y = y)) + 
+  geom_point()
+```
+
+![](lab-01-hello-r_files/figure-gfm/plot-star-1.png)<!-- -->
+
+The same code from Ex. 2 also lets us find the correlation between “x”
+and “y”
+
+``` r
+star_data %>%
+  summarize(r = cor(x, y))
+```
+
+    ## # A tibble: 1 × 1
+    ##         r
+    ##     <dbl>
+    ## 1 -0.0630
+
+So we can see that the correlation comes out to -0.0630
 
 ### Exercise 4
 
