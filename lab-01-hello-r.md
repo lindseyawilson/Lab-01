@@ -17,13 +17,13 @@ library(datasauRus)
 According to the help file, the dataset has 1846 rows and 3 variables
 (“dataset”, “x”, and “y”)
 
+    ?datasaurus_dozen
+
 ### Exercise 2
 
-The answers for this exercise are given for you below. But you should
-clean up some of the narrative so that it only includes what you want to
-turn in.
+The correlation between “x” and “y” in the dino_data dataset is -0.0645.
 
-First let’s plot the data in the dino dataset:
+And here’s what the data look like plotted:
 
 ``` r
 dino_data <- datasaurus_dozen %>%
@@ -35,7 +35,7 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
 
 ![](lab-01-hello-r_files/figure-gfm/plot-dino-1.png)<!-- -->
 
-And next calculate the correlation between `x` and `y` in this dataset:
+And here’s the code I used (was given) to find the correlation!
 
 ``` r
 dino_data %>%
